@@ -1,0 +1,53 @@
+﻿@model RealTimeWebStore.Models.ProductModel
+
+@{
+    ViewBag.Title = "Welcome to the Pusher t-shite Store";
+}
+
+<h2>Welcome to the Pusher t-shirt Store</h2>
+
+@{
+    if(ViewBag.Info != null)
+    {
+        <div class="info">@ViewBag.Info</div>
+    }
+    
+    if(ViewBag.Error != null)
+    {
+        <div class="error">@ViewBag.Error</div>
+    }
+}
+
+<div class="product">
+    <h3>@Html.DisplayFor(model => model.Title)</h3>
+    
+    @{
+        if (Model.Images != null && Model.Images.Length > 0)
+        {
+    <img src="@Model.Images[0].ImageUrl" alt="@Model.Images[0].ImageAltText" class="shadow border" />
+        }
+    }
+
+    <div class="description">
+        <p>@Html.DisplayFor(model => model.Description)</p>
+
+        <form class="buy" action="/" method="post">
+            @{
+                var stockStatusCSSClass = "in-stock";
+                if (Model.StockLevel < 0)
+                {
+                    stockStatusCSSClass = "out-of-stock";
+                }
+            }
+
+            <div class="stock @stockStatusCSSClass">
+                <span class="status">@Model.StockStatus</span>
+
+                <span class="level">@Model.StockLevel</span>
+            </div>
+
+            <input name="buy" type="submit" value="Buy" class="shadow border" />
+        </form>
+    </div>
+   
+</div>
