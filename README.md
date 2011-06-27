@@ -19,7 +19,7 @@ on the `MvcApplication` object.
 ## RealTimeWebStore_part1_sln
 
 An example of what the project should look like once the steps within the
-["The easiest way to add real-time functionality to an ASP.NET application"](http://blog.pusher.com/2011/6/25/the-easiest-way-to-add-real-time-functionality-to-an-asp-net-application)
+["The easiest way to add real-time functionality to an ASP.NET application"](http://blog.pusher.com/2011/6/25/the-easiest-way-to-add-real-time-functionality-to-an-asp-net-e-commerce-application)
 blog post have been completed.
 
 # More
