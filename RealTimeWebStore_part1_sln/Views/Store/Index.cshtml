@@ -68,9 +68,6 @@
         var stockStatusEl = $(".product .stock .status");
 
         var pusher = new Pusher("APP_KEY");
-        pusher.bind("pusher:connection_established", function() {
-            // we are connected
-        });
 
         var channel = pusher.subscribe("product-@Model.ProductId");
 
