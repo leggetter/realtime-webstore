@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using PusherRESTDotNet;
 using System.Configuration;
+using RealTimeWebStore.Code;
+using System.Net;
 
 namespace RealTimeWebStore.Controllers
 {
@@ -28,24 +30,49 @@ namespace RealTimeWebStore.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string id)
+        public ActionResult Index(string productId, string socketId)
         {
-            bool bought = MvcApplication.ProductRepository.Buy(MvcApplication.BLUE_TSHIRT_ID);
-            var model = MvcApplication.ProductRepository.GetProductById(MvcApplication.BLUE_TSHIRT_ID);
+            ActionResult result = null;
+
+            bool bought = MvcApplication.ProductRepository.Buy(productId);
+            var model = MvcApplication.ProductRepository.GetProductById(productId);
 
             if (bought)
             {
                 ViewBag.Info = model.Title + " successfully bought";
 
-                ObjectPusherRequest request = new ObjectPusherRequest("product-" + model.ProductId, "stockUpdated", model);
+                var stockEvent = new StockUpdatedEvent(model, socketId);
+                ObjectPusherRequest request = new ObjectPusherRequest("product-" + stockEvent.ProductId, "stockUpdated", stockEvent);
                 _provider.Trigger(request);
             }
             else
             {
                 ViewBag.Error = "There was a problem buying " + model.Title;
             }
-            
-            return View("Index", model);
+
+            if (socketId != null)
+            {
+                result = GetBoughtStatusCode(bought);
+            }
+            else
+            {
+                result = View("Index", model);
+            }
+            return result;
+        }
+
+        private ActionResult GetBoughtStatusCode(bool bought)
+        {
+            ActionResult result = null;
+            if (bought)
+            {
+                result = new HttpStatusCodeResult((int)HttpStatusCode.OK);
+            }
+            else
+            {
+                result = new HttpStatusCodeResult((int)HttpStatusCode.NotFound);
+            }
+            return result;
         }
     }
 }

@@ -4,6 +4,10 @@
     ViewBag.Title = "Welcome to the Pusher t-shite Store";
 }
 
+@section headContent{
+    <link href="@Url.Content("~/Content/jboesch-Gritter-2c36885/css/jquery.gritter.css")" rel="stylesheet" type="text/css" />
+}
+
 <h2>Welcome to the Pusher t-shirt Store</h2>
 
 @{
@@ -45,7 +49,7 @@
 
                 <span class="level">@Model.StockLevel</span>
             </div>
-
+            <input type="hidden" name="productId" value="@Model.ProductId" />
             <input name="buy" type="submit" value="Buy" class="shadow border" />
         </form>
     </div>
@@ -53,6 +57,7 @@
 </div>
 
 <script src="http://js.pusherapp.com/1.8/pusher.min.js"></script>
+<script src="@Url.Content("~/Content/jboesch-Gritter-2c36885/js/jquery.gritter.min.js")"></script>
 <script>
     Pusher.log = function(message) {
         var msg = document.createTextNode(message);
@@ -66,17 +71,27 @@
 
         var stockLevelEl = $(".product .stock .level");
         var stockStatusEl = $(".product .stock .status");
+        var orgTextSize = stockLevelEl.css('fontSize');
+        var productId = "@Model.ProductId";
 
-        var pusher = new Pusher("APP_KEY");
+        var pusher = new Pusher("006c79b1fe1700c6c10d");
+        var channel = pusher.subscribe("product-" + productId);
 
-        var channel = pusher.subscribe("product-@Model.ProductId");
-
-        channel.bind("stockUpdated", function(product) {
-            var orgSize = stockLevelEl.css('fontSize');
+        channel.bind("stockUpdated", function(update) {
             animate(stockLevelEl, '8px', function() {
-                stockLevelEl.text(product.StockLevel);
-                stockStatusEl.text(product.StockStatus);
-                animate(stockLevelEl, orgSize);
+                stockLevelEl.text(update.StockLevel);
+                stockStatusEl.text(update.StockStatus);
+                animate(stockLevelEl, orgTextSize);
+
+                if (update.SocketId !== pusher.socket_id) { // only show if we didn't make the purchase
+                    if (update.StockLevel > 0) {
+                        addNotification("Another one sold",
+                            "That's another one sold. You'd best hurry, there's only " + update.StockLevel + " left in stock.");
+                    }
+                    else {
+                        addNotification("Out of stock", "Too slow, we're all out of stock now");
+                    }
+                }
             });
         })
 
@@ -87,6 +102,30 @@
                 if (callback) {
                     callback();
                 }
+            });
+        };
+
+        $(".product form").submit(function() {
+            $.ajax({
+                type: "POST",
+                url: "/store",
+                data: "productId=" + productId + "&socketId=" + pusher.socket_id,
+                success: function() {
+                    addNotification("T-Shirt Purchase successful", "You now own a mighty fine Pusher t-shirt. Congratulations!", "gritter-success");
+                },
+                error: function() {
+                    addNotification("Sorry, Out of stock", "Sorry, that product you are trying to buy is out of stock.", "gritter-fail");
+                }
+            });
+
+            return false;
+        });
+
+        function addNotification(title, text, className) {
+            $.gritter.add({
+                title: title,
+                text: text,
+                class_name: className
             });
         };
     });

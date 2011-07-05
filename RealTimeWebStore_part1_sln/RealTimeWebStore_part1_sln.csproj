@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\ProductRepository.cs" />
+    <Compile Include="Code\StockUpdatedEvent.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -75,6 +76,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\jboesch-Gritter-2c36885\css\jquery.gritter.css" />
+    <Content Include="Content\jboesch-Gritter-2c36885\images\gritter-long.png" />
+    <Content Include="Content\jboesch-Gritter-2c36885\images\gritter.png" />
+    <Content Include="Content\jboesch-Gritter-2c36885\images\ie-spacer.gif" />
+    <Content Include="Content\jboesch-Gritter-2c36885\images\trees.jpg" />
+    <Content Include="Content\jboesch-Gritter-2c36885\index.html" />
+    <Content Include="Content\jboesch-Gritter-2c36885\js\jquery.gritter.js" />
+    <Content Include="Content\jboesch-Gritter-2c36885\js\jquery.gritter.min.js" />
     <Content Include="Content\pusher_tee.jpg" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -145,6 +154,9 @@
   <ItemGroup>
     <Content Include="Views\Store\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\jboesch-Gritter-2c36885\README.markdown" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -161,8 +173,8 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4988</DevelopmentServerPort>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>80</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
