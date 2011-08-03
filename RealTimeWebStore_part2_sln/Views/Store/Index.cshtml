@@ -54,9 +54,13 @@
         </form>
     </div>
    
+    <div class="whos-shopping border">
+        <h3>Who's shopping?</h3>
+        <ul></ul>
+    </div>
 </div>
 
-<script src="http://js.pusherapp.com/1.8/pusher.min.js"></script>
+<script src="http://js.pusherapp.com/1.9/pusher.js"></script>
 <script src="@Url.Content("~/Content/jboesch-Gritter-2c36885/js/jquery.gritter.min.js")"></script>
 <script>
     Pusher.log = function(message) {
@@ -75,7 +79,48 @@
         var productId = "@Model.ProductId";
 
         var pusher = new Pusher("006c79b1fe1700c6c10d");
-        var channel = pusher.subscribe("product-" + productId);
+        var channel = pusher.subscribe("presence-" + productId);
+        channel.bind("pusher:subscription_succeeded", function(members) {
+
+            members.each(function(member) {
+                addMember(member);
+            });
+
+        });
+        channel.bind("pusher:member_added", function(member) {
+            addMember(member);
+        });
+        channel.bind("pusher:member_removed", function(member) {
+            removeMember(member);
+        });
+
+        function addMember(member) {
+            var enteredSite = new Date(member.info.timestamp);
+            var now = new Date();
+            var timeOnSite = (now - enteredSite);
+            var li = $("<li data-user-id='" + member.id + "'>" +
+                            member.id + " here for " +
+                            toReadableTime(timeOnSite) +
+                       "</li>");
+            $(".whos-shopping ul").append(li);
+        };
+
+        function removeMember(member) {
+            $(".whos-shopping ul li[data-user-id='" + member.id + "']").remove();
+        };
+
+        function toReadableTime(ticks) {
+            var seconds = Math.floor(ticks / 1000);
+            var secondsInHour = (60 * 60);
+            var timeOnSite = seconds + " seconds";
+            if (seconds > secondsInHour) {
+                timeOnSite = "about " + Math.floor(seconds / secondsInHour) + " hours";
+            }
+            else if (seconds > 60) {
+                timeOnSite = "about " + Math.floor(seconds / 60) + " minutes";
+            }
+            return timeOnSite;
+        };
 
         channel.bind("stockUpdated", function(update) {
             animate(stockLevelEl, '8px', function() {
@@ -83,7 +128,7 @@
                 stockStatusEl.text(update.StockStatus);
                 animate(stockLevelEl, orgTextSize);
 
-                if (update.SocketId !== pusher.socket_id) { // only show if we didn't make the purchase
+                if (update.SocketId !== pusher.connection.socket_id) { // only show if we didn't make the purchase
                     if (update.StockLevel > 0) {
                         addNotification("Another one sold",
                             "That's another one sold. You'd best hurry, there's only " + update.StockLevel + " left in stock.");
@@ -93,7 +138,7 @@
                     }
                 }
             });
-        })
+        });
 
         function animate(el, to, callback) {
             el.animate({
@@ -109,7 +154,7 @@
             $.ajax({
                 type: "POST",
                 url: "/store",
-                data: "productId=" + productId + "&socketId=" + pusher.socket_id,
+                data: "productId=" + productId + "&socketId=" + pusher.connection.socket_id,
                 success: function() {
                     addNotification("T-Shirt Purchase successful", "You now own a mighty fine Pusher t-shirt. Congratulations!", "gritter-success");
                 },

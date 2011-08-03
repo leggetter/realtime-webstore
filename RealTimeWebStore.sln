@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{3C66BE98
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTimeWebStore_part2_sln", "RealTimeWebStore_part2_sln\RealTimeWebStore_part2_sln.csproj", "{242AB861-C976-4D60-BDAC-75AE242D5396}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{051E0FAF-ACA1-45EB-A388-DC3901198929}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{051E0FAF-ACA1-45EB-A388-DC3901198929}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{051E0FAF-ACA1-45EB-A388-DC3901198929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{242AB861-C976-4D60-BDAC-75AE242D5396}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{242AB861-C976-4D60-BDAC-75AE242D5396}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{242AB861-C976-4D60-BDAC-75AE242D5396}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{242AB861-C976-4D60-BDAC-75AE242D5396}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

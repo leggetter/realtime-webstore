@@ -1,0 +1,157 @@
+body
+{
+	font-size: .85em;
+	font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+	color: #232323;
+	background-color: #fff;
+}
+
+header,
+footer,
+nav,
+section {
+	display: block;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error
+{
+	color: #ff0000;
+}
+
+.field-validation-valid
+{
+	display: none;
+}
+
+.input-validation-error
+{
+	border: 1px solid #ff0000;
+	background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+	font-weight: bold;
+	color: #ff0000;
+}
+
+.validation-summary-valid
+{
+	display: none;
+}
+
+/* store styles */
+.product {
+}
+
+.product h3 {
+}
+
+.product .description, .product .whos-shopping {
+	float: left;
+	margin-left: 20px;
+	width: 40%;
+}
+
+.product img {
+	float: left;
+	width: 40%;
+}
+
+.product input[type=submit] {
+	display: inline-block;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	padding: .5em 2em .55em;
+	float: right;
+}
+
+.product input[type=submit]:hover {
+	text-decoration: none;
+}
+
+.product input[type=submit]:active {
+	position: relative;
+	top: 1px;
+}
+
+.product .stock {
+    
+}
+
+.product .stock .status, .product .stock .level {
+    float: left;
+    line-height: 35px;
+}
+
+.product .stock .level {
+    font-size: 20px;
+}
+
+.product .stock .status {
+    margin-right: 20px;
+}
+
+.product .stock.in-stock .level{
+	display: inline;
+}
+
+.product .stock.out-of-stock .level {
+	display: none;
+}
+
+.product .whos-shopping {
+    margin-top: 20px;
+    padding: 5px;
+    border: 2px solid #000;
+}
+
+.product .whos-shopping h3 {
+    margin-top: 5px;
+}
+
+.product .whos-shopping ul {
+    margin-left: 0;
+    padding-left: 15px;
+}
+
+.product .whos-shopping ul li {
+    margin-left: 5px;
+}
+
+.log-msg {
+    display: none;
+	clear: both;
+}
+
+.border {
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+}
+
+.shadow {
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+
+.gritter-success {
+    background-color: Green !important;
+}
+.gritter-success *{
+    background-image: none !important;
+}
+.gritter-fail {
+    background-color: Red !important;
+}
+.gritter-fail *{
+    background-image: none !important;
+}

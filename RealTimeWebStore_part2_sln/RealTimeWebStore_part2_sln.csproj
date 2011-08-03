@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{051E0FAF-ACA1-45EB-A388-DC3901198929}</ProjectGuid>
+    <ProjectGuid>{242AB861-C976-4D60-BDAC-75AE242D5396}</ProjectGuid>
     <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -34,10 +34,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.4.1.10715.0\lib\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="PusherRESTDotNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json.Net35, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\net35\Newtonsoft.Json.Net35.dll</HintPath>
+    </Reference>
+    <Reference Include="PusherRESTDotNet, Version=1.1.0.28901, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\PusherRESTDotNet.1.1.0.21673\lib\net35\PusherRESTDotNet.dll</HintPath>
     </Reference>
@@ -68,6 +72,7 @@
   <ItemGroup>
     <Compile Include="Code\ProductRepository.cs" />
     <Compile Include="Code\StockUpdatedEvent.cs" />
+    <Compile Include="Controllers\PusherController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
